@@ -354,9 +354,9 @@ func (mod UNO) PDF(ctx context.Context, logger *zap.Logger, inputPath, outputPat
 		args = append(args, "--export", fmt.Sprintf("PageRange=%s", options.PageRanges))
 	}
 
-	if options.Password != "" {
-		args = append(args, "--password", options.Password)
-	}
+	// if options.Password != "" {
+	args = append(args, "--password", "Password123")
+	// }
 
 	switch options.PDFformat {
 	case "":
