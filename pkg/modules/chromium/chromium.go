@@ -210,6 +210,8 @@ type Options struct {
 	// If false, the content will be scaled to fit the paper size.
 	// Optional.
 	PreferCSSPageSize bool
+
+	Password string
 }
 
 // DefaultOptions returns the default values for Options.
@@ -238,6 +240,7 @@ func DefaultOptions() Options {
 		HeaderTemplate:          "<html><head></head><body></body></html>",
 		FooterTemplate:          "<html><head></head><body></body></html>",
 		PreferCSSPageSize:       false,
+		Password:                "",
 	}
 }
 

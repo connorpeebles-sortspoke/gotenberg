@@ -39,6 +39,7 @@ func FormDataChromiumPDFOptions(ctx *api.Context) (*api.FormData, Options) {
 		pageRanges                                       string
 		headerTemplate, footerTemplate                   string
 		preferCSSPageSize                                bool
+		password                                         string
 	)
 
 	form := ctx.FormData().
@@ -115,6 +116,7 @@ func FormDataChromiumPDFOptions(ctx *api.Context) (*api.FormData, Options) {
 		HeaderTemplate:          headerTemplate,
 		FooterTemplate:          footerTemplate,
 		PreferCSSPageSize:       preferCSSPageSize,
+		Password:                password,
 	}
 
 	return form, options
