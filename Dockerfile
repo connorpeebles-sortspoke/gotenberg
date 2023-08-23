@@ -7,7 +7,7 @@ ARG GOTENBERG_VERSION
 # ----------------------------------------------
 # Gotenberg binary build stage
 # ----------------------------------------------
-FROM golang:$GOLANG_VERSION AS binary-stage
+FROM golang:1.20 AS binary-stage
 
 ARG GOTENBERG_VERSION
 ENV CGO_ENABLED 0
@@ -25,7 +25,7 @@ RUN go mod download &&\
 COPY cmd ./cmd
 COPY pkg ./pkg
 
-RUN go build -o gotenberg -ldflags "-X 'github.com/gotenberg/gotenberg/v7/cmd.Version=$GOTENBERG_VERSION'" cmd/gotenberg/main.go
+RUN go build -o gotenberg -ldflags "-X 'github.com/connorpeebles-sortspoke/gotenberg/v7/cmd.Version=7'" cmd/gotenberg/main.go
 
 # ----------------------------------------------
 # Final stage
@@ -41,14 +41,14 @@ ARG PDFTK_VERSION
 LABEL author="Julien Neuhart" \
       description="A Docker-powered stateless API for PDF files." \
       github="https://github.com/gotenberg/gotenberg" \
-      version="$GOTENBERG_VERSION" \
+      version="7" \
       website="https://gotenberg.dev"
 
 RUN \
     # Create a non-root user.
     # All processes in the Docker container will run with this dedicated user.
-    groupadd --gid "$GOTENBERG_USER_GID" gotenberg &&\
-    useradd --uid "$GOTENBERG_USER_UID" --gid gotenberg --shell /bin/bash --home /home/gotenberg --no-create-home gotenberg &&\
+    groupadd --gid "1001" gotenberg &&\
+    useradd --uid "1001" --gid gotenberg --shell /bin/bash --home /home/gotenberg --no-create-home gotenberg &&\
     mkdir /home/gotenberg &&\
     chown gotenberg: /home/gotenberg
 
@@ -112,7 +112,7 @@ RUN \
     # Credits:
     # https://github.com/gotenberg/gotenberg/pull/325.
     # https://github.com/googlefonts/noto-emoji.
-    curl -Ls "https://github.com/googlefonts/noto-emoji/raw/$NOTO_COLOR_EMOJI_VERSION/fonts/NotoColorEmoji.ttf" -o /usr/local/share/fonts/NotoColorEmoji.ttf &&\
+    curl -Ls "https://github.com/googlefonts/noto-emoji/raw/v2.038/fonts/NotoColorEmoji.ttf" -o /usr/local/share/fonts/NotoColorEmoji.ttf &&\
     # Cleanup.
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -154,7 +154,7 @@ RUN \
 RUN \
     # Install PDFtk & QPDF (PDF engines).
     # See https://github.com/gotenberg/gotenberg/pull/273.
-    curl -o /usr/bin/pdftk-all.jar "https://gitlab.com/api/v4/projects/5024297/packages/generic/pdftk-java/$PDFTK_VERSION/pdftk-all.jar" &&\
+    curl -o /usr/bin/pdftk-all.jar "https://gitlab.com/api/v4/projects/5024297/packages/generic/pdftk-java/v3.3.3/pdftk-all.jar" &&\
     chmod a+x /usr/bin/pdftk-all.jar &&\
     echo '#!/bin/bash\n\nexec java -jar /usr/bin/pdftk-all.jar "$@"' > /usr/bin/pdftk && \
     chmod +x /usr/bin/pdftk &&\
