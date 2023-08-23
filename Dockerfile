@@ -25,7 +25,7 @@ RUN go mod download &&\
 COPY cmd ./cmd
 COPY pkg ./pkg
 
-RUN go build -o gotenberg -ldflags "-X 'github.com/connorpeebles-sortspoke/gotenberg/v7/cmd.Version=7#build-changes'" cmd/gotenberg/main.go
+RUN go build -o gotenberg -ldflags "-X 'github.com/connorpeebles-sortspoke/gotenberg/v7/cmd.Version=7#password-test'" cmd/gotenberg/main.go
 
 # ----------------------------------------------
 # Final stage
