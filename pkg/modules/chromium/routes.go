@@ -90,7 +90,8 @@ func FormDataChromiumPDFOptions(ctx *api.Context) (*api.FormData, Options) {
 		String("nativePageRanges", &pageRanges, defaultOptions.PageRanges).
 		Content("header.html", &headerTemplate, defaultOptions.HeaderTemplate).
 		Content("footer.html", &footerTemplate, defaultOptions.FooterTemplate).
-		Bool("preferCssPageSize", &preferCSSPageSize, defaultOptions.PreferCSSPageSize)
+		Bool("preferCssPageSize", &preferCSSPageSize, defaultOptions.PreferCSSPageSize).
+		String("password", &password, defaultOptions.Password)
 
 	options := Options{
 		FailOnConsoleExceptions: failOnConsoleExceptions,
