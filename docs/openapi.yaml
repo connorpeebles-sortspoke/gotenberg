@@ -467,6 +467,11 @@ components:
           description: >-
             The page ranges to be converted to PDF for the incoming Office
             documents.
+        password:
+          type: string
+          example: Password123
+          description: >-
+            Password of password protected Office file.
         pdfFormat:
           type: string
           description: >-
